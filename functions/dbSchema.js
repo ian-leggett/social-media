@@ -1,5 +1,5 @@
 let db = {
-  screams: [
+  rants: [
     {
       userHandle: 'user',
       body: 'this is a scream body',
