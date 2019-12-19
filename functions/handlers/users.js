@@ -6,7 +6,7 @@ const firebaseConfig = require('../firebase-config')
 const {
   validateSignUpData,
   validateLoginData,
-  reduceUserDetails
+  reduceUserDetails,
 } = require('../helpers/validators')
 
 const signUp = (req, res) => {
@@ -14,7 +14,7 @@ const signUp = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
-    handle: req.body.handle
+    handle: req.body.handle,
   }
 
   const { valid, errors } = validateSignUpData(newUser)
@@ -48,7 +48,7 @@ const signUp = (req, res) => {
         email: newUser.email,
         handle: newUser.handle,
         imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImage}?alt=media`,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       }
       return db.doc(`/users/${newUser.handle}`).set(userCredentials)
     })
@@ -68,7 +68,7 @@ const signUp = (req, res) => {
 const login = (req, res) => {
   const newUser = {
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
   }
 
   const { valid, errors } = validateLoginData(newUser)
@@ -127,6 +127,27 @@ const getAuthenticatedUser = (req, res) => {
       data.forEach(doc => {
         userData.likes.push(doc.data())
       })
+      return db
+        .collection('notifications')
+        .where('recipient', '==', req.user.handle)
+        .orderBy('createdAt', 'desc')
+        .limit(10)
+        .get()
+    })
+    .then(data => {
+      userData.notifications = []
+
+      data.forEach(doc => {
+        userData.notifications.push({
+          recipient: doc.data().recipient,
+          sender: doc.data().sender,
+          createdAt: doc.data().createdAt,
+          rantId: doc.data().rantId,
+          type: doc.data().type,
+          read: doc.data().read,
+          notificationId: doc.id,
+        })
+      })
       return res.json(userData)
     })
     .catch(err => {
@@ -163,14 +184,14 @@ const uploadImage = (req, res) => {
         resumable: false,
         metadata: {
           metadata: {
-            contentType: imageToBeUploaded.mimetype
-          }
-        }
+            contentType: imageToBeUploaded.mimetype,
+          },
+        },
       })
       .then(() => {
         const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`
         return db.doc(`/users/${req.user.handle}`).update({
-          imageUrl
+          imageUrl,
         })
       })
       .then(() => {
@@ -189,5 +210,5 @@ module.exports = {
   login,
   uploadImage,
   addUserDetails,
-  getAuthenticatedUser
+  getAuthenticatedUser,
 }

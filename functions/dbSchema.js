@@ -8,8 +8,8 @@ let db = {
       imageUrl: 'image/sdjhfjshdgfjhgf/sdugfu',
       bio: 'Hello, my name is user, nice to meet you',
       website: 'https//user.com',
-      location: 'London UK'
-    }
+      location: 'London UK',
+    },
   ],
   rants: [
     {
@@ -17,17 +17,27 @@ let db = {
       body: 'this is a scream body',
       createdAt: '2019-11-17T17:02:11.992Z',
       likeCount: 5,
-      commentCount: 2
-    }
+      commentCount: 2,
+    },
   ],
   comments: [
     {
       userHandle: 'user',
       rantId: 'sduygfufgdsdfsd',
       body: 'Nice rant, I like it',
-      createdAt: '2019-11-17T17:02:11.992Z'
-    }
-  ]
+      createdAt: '2019-11-17T17:02:11.992Z',
+    },
+  ],
+  notifications: [
+    {
+      recipient: 'user',
+      sender: 'John',
+      read: 'true | false',
+      rantId: 'sduygfufgdsdfsd',
+      type: 'like | comment',
+      createdAt: '2019-11-17T17:02:11.992Z',
+    },
+  ],
 }
 
 const userDetails = {
@@ -39,16 +49,16 @@ const userDetails = {
     imageUrl: 'image/hfsdhgjgj/sdfuudysgf',
     bio: 'Hello, my name is user, nice to meet you',
     website: 'https://user.com',
-    location: 'London UK'
+    location: 'London UK',
   },
   likes: [
     {
       userHandle: 'user',
-      rantId: 'hhugfiugfiugyu'
+      rantId: 'hhugfiugfiugyu',
     },
     {
       userHandle: 'user',
-      rantId: 'dshfhdjhsbfhjd'
-    }
-  ]
+      rantId: 'dshfhdjhsbfhjd',
+    },
+  ],
 }
