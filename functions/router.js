@@ -15,6 +15,8 @@ const {
   uploadImage,
   addUserDetails,
   getAuthenticatedUser,
+  getUserDetails,
+  markNotificationsRead,
 } = require('./handlers/users')
 
 const { FBAuth } = require('./middleware')
@@ -32,5 +34,7 @@ app.post('/login', login)
 app.post('/user', FBAuth, addUserDetails)
 app.post('/user/image', FBAuth, uploadImage)
 app.get('/user', FBAuth, getAuthenticatedUser)
+app.get('/user/:handle', getUserDetails)
+app.post('/notifications', FBAuth, markNotificationsRead)
 
 module.exports = app
