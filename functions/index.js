@@ -97,6 +97,8 @@ exports.onUserImageChange = functions
           })
           return batch.commit()
         })
+    } else {
+      return true
     }
   })
 
@@ -114,13 +116,13 @@ exports.onRantDelete = functions
         data.forEach(doc => {
           batch.delete(db.doc(`/comments/${doc.id}`))
         })
-        return db.collection('likes').where('rantId', '==', rantId)
+        return db.collection('likes').where('rantId', '==', rantId).get()
       })
       .then(data => {
         data.forEach(doc => {
           batch.delete(db.doc(`/likes/${doc.id}`))
         })
-        return db.collection('notifications').where('rantId', '==', rantId)
+        return db.collection('notifications').where('rantId', '==', rantId).get()
       })
       .then(data => {
         data.forEach(doc => {
