@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import axios from 'axios'
-import Rants from '../components/Rants'
+import Rant from '../components/Rant'
 
 export class home extends Component {
   state = {
@@ -12,7 +12,6 @@ export class home extends Component {
     axios
       .get('/rants')
       .then(res => {
-        console.log(res.data)
         this.setState({
           rants: res.data,
         })
@@ -24,7 +23,7 @@ export class home extends Component {
 
   render() {
     let recentRants = this.state.rants ? (
-      this.state.rants.map(rant => <Rants rant={rant} />)
+      this.state.rants.map(rant => <Rant key={rant.rantId} rant={rant} />)
     ) : (
       <p>Loading...</p>
     )

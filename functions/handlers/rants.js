@@ -9,7 +9,7 @@ const getRants = (req, res) => {
       let rants = []
       data.forEach(doc => {
         rants.push({
-          screamId: doc.id,
+          rantId: doc.id,
           body: doc.data().body,
           userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,

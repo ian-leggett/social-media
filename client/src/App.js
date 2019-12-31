@@ -1,7 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+// Mui stuff
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
+import Link from '@material-ui/core/Link'
 
 // Components
 import NavBar from './components/NavBar'
@@ -13,21 +16,21 @@ import signup from './pages/signup'
 
 // Styles
 import './App.css'
+import { Typography } from '@material-ui/core'
 
-// Theme
 const theme = createMuiTheme({
+  typography: {
+    h1: {
+      fontSize: '3rem',
+    },
+  },
   palette: {
+    type: 'dark',
     primary: {
-      light: '#33c9dc',
-      main: '#00bcd4',
-      dark: '#008394',
-      contrastText: '#fff',
+      main: '#fff',
     },
     secondary: {
-      light: '#ff6333',
-      main: '#ff3d00',
-      dark: '#b22a00',
-      contrastText: '#fff',
+      main: '#000',
     },
   },
 })
@@ -44,6 +47,13 @@ function App() {
               <Route exact path='/login' component={login} />
               <Route exact path='/signup' component={signup} />
             </Switch>
+            <Typography
+              component={Link}
+              href='https://icons8.com/'
+              color='secondary'
+            >
+              Icons by Icons 8
+            </Typography>
           </div>
         </Router>
       </div>
