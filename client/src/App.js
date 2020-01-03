@@ -1,10 +1,13 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
 // Redux
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import { SET_AUTENTICATED } from './redux/types'
+import { logoutUser, getUserData } from './redux/actions/userActions'
 
 // Mui stuff
 import { MuiThemeProvider } from '@material-ui/core/styles'
@@ -30,16 +33,17 @@ import muiTheme from './util/theme'
 
 let theme = createMuiTheme(muiTheme)
 
-let authenticated
 const token = localStorage.FBIdToken
 
 if (token) {
   const decodedToken = jwtDecode(token)
   if (decodedToken.exp * 1000 < Date.now()) {
+    store.dispatch(logoutUser())
     window.location.href = '/login'
-    authenticated = false
   } else {
-    authenticated = true
+    store.dispatch({type: SET_AUTENTICATED})
+    axios.defaults.headers.common['Authorization'] = token
+    store.dispatch(getUserData())
   }
 }
 
@@ -56,13 +60,12 @@ function App() {
                 exact
                 path='/login'
                 component={login}
-                authenticated={authenticated}
+
               />
               <Authroute
                 exact
                 path='/signup'
                 component={signup}
-                authenticated={authenticated}
               />
             </Switch>
           </Grid>
