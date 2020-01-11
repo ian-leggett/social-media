@@ -8,8 +8,7 @@ import { editUserDetails } from '../redux/actions/userActions'
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles'
-import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton'
+import MyButton from '../util/MyButton'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
@@ -20,13 +19,13 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 // Icons
 import EditIcon from '@material-ui/icons/Edit'
 
-const styles = (theme) => ({
-    textField: {
-        margin: `${theme.spacing(1)}px auto ${theme.spacing(1)}px auto`,
-      },
-    button: {
-        float: 'right'
-    }
+const styles = theme => ({
+  textField: {
+    margin: `${theme.spacing(1)}px auto ${theme.spacing(1)}px auto`,
+  },
+  button: {
+    float: 'right',
+  },
 })
 
 class EditDetails extends Component {
@@ -77,11 +76,13 @@ class EditDetails extends Component {
     const { classes } = this.props
     return (
       <React.Fragment>
-        <Tooltip title='Edit details' placement='top'>
-          <IconButton onClick={this.handleOpen} className={classes.button}>
-            <EditIcon color='primary' />
-          </IconButton>
-        </Tooltip>
+        <MyButton
+          tip='Edit Details'
+          onClick={this.handleOpen}
+          btnClassName={classes.button}
+        >
+          <EditIcon color='primary' />
+        </MyButton>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
