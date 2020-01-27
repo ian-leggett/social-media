@@ -3,7 +3,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import MyButton from '../util/MyButton'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
+import DeleteRant from './DeleteRant';
 
 import { likeRant, unLikeRant } from '../redux/actions/dataActions'
 
@@ -23,6 +24,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 const styles = {
   card: {
+    position: 'relative',
     display: 'flex',
     marginBottom: 20,
   },
@@ -64,9 +66,12 @@ export class Rant extends Component {
         likeCount,
         commentCount,
       },
-      user: { authenticated },
+      user: {
+        authenticated,
+        credentials: { handle },
+      },
     } = this.props
-    
+
     const likeButton = !authenticated ? (
       <MyButton tip='Like'>
         <Link to='/login'>
@@ -82,6 +87,11 @@ export class Rant extends Component {
         <FavoriteBorder color='primary' />
       </MyButton>
     )
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeleteRant rantId={rantId} />
+      ) : null
+
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -98,11 +108,12 @@ export class Rant extends Component {
           >
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant='body2' color='textSecondary'>
             {moment(createdAt).fromNow()}
           </Typography>
           <Typography variant='body1'>{body}</Typography>
-         {likeButton}
+          {likeButton}
           <span>{likeCount} Likes</span>
           <MyButton tip='comments'>
             <ChatIcon color='primary' />
@@ -125,11 +136,13 @@ Rant.propTypes = {
   user: PropTypes.object.isRequired,
   rant: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  openDialog: PropTypes.bool
-};
+  openDialog: PropTypes.bool,
+}
 
-const mapStateToProps = (state) => ({
-  user: state.user
-});
+const mapStateToProps = state => ({
+  user: state.user,
+})
 
-export default connect(mapStateToProps, {likeRant, unLikeRant})(withStyles(styles)(Rant));
+export default connect(mapStateToProps, { likeRant, unLikeRant })(
+  withStyles(styles)(Rant)
+)

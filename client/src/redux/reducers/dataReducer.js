@@ -46,10 +46,8 @@ export default function(state = initialState, action) {
         ...state,
       }
     case DELETE_RANT:
-      index = state.rants.findIndex(
-        rant => rant.rantId === action.payload
-      )
-      state.rants.splice(index, 1)
+      let rantIndex = state.rants.findIndex(rant => rant.rantId === action.payload)
+      state.rants.splice(rantIndex, 1)
       return {
         ...state,
       }

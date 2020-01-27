@@ -106,7 +106,7 @@ export const submitComment = (rantId, commentData) => dispatch => {
       })
     })
 }
-export const deleteRANT = rantId => dispatch => {
+export const deleteRant = rantId => dispatch => {
   axios
     .delete(`/rant/${rantId}`)
     .then(() => {

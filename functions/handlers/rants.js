@@ -24,6 +24,9 @@ const getRants = (req, res) => {
 }
 
 const createRant = (req, res) => {
+  if (req.body.body.trim() === '') {
+    return res.status(400).json({ body: 'Body must not be empty' });
+  }
   const newRant = {
     body: req.body.body,
     userHandle: req.user.handle,
@@ -32,6 +35,7 @@ const createRant = (req, res) => {
     likeCount: 0,
     commentCount: 0,
   }
+
 
   db.collection('rants')
     .add(newRant)
