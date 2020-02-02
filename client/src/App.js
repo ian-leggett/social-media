@@ -34,6 +34,8 @@ import muiTheme from './util/theme'
 
 let theme = createMuiTheme(muiTheme)
 
+axios.defaults.baseURL = 'https://europe-west1-social-media-ad3fc.cloudfunctions.net/api'
+
 const token = localStorage.FBIdToken
 
 if (token) {
