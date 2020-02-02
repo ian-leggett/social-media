@@ -24,6 +24,7 @@ import Authroute from './util/Authroute'
 import home from './pages/home'
 import login from './pages/login'
 import signup from './pages/signup'
+import user from './pages/user'
 
 // Styles
 import './App.css'
@@ -67,6 +68,12 @@ function App() {
                 path='/signup'
                 component={signup}
               />
+              <Route exact path='/users/:handle' component={user} />
+              <Route
+                  exact
+                  path="/users/:handle/rant/:rantId"
+                  component={user}
+                />
             </Switch>
           </Grid>
           <Typography

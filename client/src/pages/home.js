@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
-import axios from 'axios'
 import PropTypes from 'prop-types'
 
 // Components
@@ -9,6 +8,7 @@ import Profile from '../components/Profile'
 
 import { connect } from 'react-redux'
 import { getRants } from '../redux/actions/dataActions'
+import RantSkeleton from '../components/RantSkeleton'
 
 export class home extends Component {
   state = {
@@ -24,7 +24,7 @@ export class home extends Component {
     let recentRants = !loading ? (
       rants.map(rant => <Rant key={rant.rantId} rant={rant} />)
     ) : (
-      <p>Loading...</p>
+     <RantSkeleton/>
     )
     return (
       <Grid container spacing={4}>

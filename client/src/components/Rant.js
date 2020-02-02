@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import MyButton from '../util/MyButton'
 import PropTypes from 'prop-types'
-import DeleteRant from './DeleteRant';
+import DeleteRant from './DeleteRant'
+import RantDialog from './RantDialog'
 
 import { likeRant, unLikeRant } from '../redux/actions/dataActions'
 
@@ -119,11 +120,11 @@ export class Rant extends Component {
             <ChatIcon color='primary' />
           </MyButton>
           <span>{commentCount} comments</span>
-          {/* <ScreamDialog
+          <RantDialog
             rantId={rantId}
             userHandle={userHandle}
             openDialog={this.props.openDialog}
-          /> */}
+          />
         </CardContent>
       </Card>
     )

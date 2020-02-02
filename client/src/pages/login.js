@@ -91,7 +91,7 @@ export class login extends Component {
         <Grid item sm>
           <img
             src={AppIcon}
-            alt='Angrey Mankey'
+            alt='Angry Mankey'
             className={classes.image}
             title='Login and get ranting!'
           />
